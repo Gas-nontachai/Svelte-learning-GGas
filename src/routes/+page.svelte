@@ -5,11 +5,13 @@
 	import Swal from 'sweetalert2';
 	import { slide } from 'svelte/transition';
 	import { formatDate } from '$lib/utils/date';
+	import ProfileDialog from '$lib/components/ProfileDialog.svelte';
 
 	const { getUserBy, insertUser, updateUserBy, deleteUserBy } = useUser();
 
 	let users: User[] = [];
 	let loading = false;
+	let showProfileDialog = false;
 	let error: string | null = null;
 
 	// ฟอร์มเพิ่ม/แก้ไข
@@ -169,6 +171,10 @@
 			// แก้ไข
 			await updateUser(editingUser);
 		}
+	};
+	const openProfileDialog = (user: User) => {
+		editingUser = user;
+		showProfileDialog = true;
 	};
 </script>
 
@@ -377,12 +383,14 @@
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="h-10 w-10 flex-shrink-0">
-													<div
-														class="flex h-10 w-10 items-center justify-center rounded-full font-semibold text-white"
-														style="background-color: #4DA8DA;"
-													>
-														{user.name.charAt(0).toUpperCase()}
-													</div>
+													<button on:click={() => openProfileDialog(user)} class="cursor-pointer">
+														<div
+															class="flex h-10 w-10 items-center justify-center rounded-full font-semibold text-white"
+															style="background-color: #4DA8DA;"
+														>
+															{user.name.charAt(0).toUpperCase()}
+														</div>
+													</button>
 												</div>
 												<div class="ml-4">
 													<div class="text-sm font-medium text-gray-900">{user.name}</div>
@@ -458,6 +466,10 @@
 						</table>
 					</div>
 				</div>
+			{/if}
+
+			{#if showProfileDialog && editingUser}
+				<ProfileDialog user={editingUser} onClose={() => (showProfileDialog = false)} />
 			{/if}
 		</div>
 	</div>
