@@ -17,7 +17,7 @@
 	let showForm = false;
 
 	// โหลด users จาก API
-	async function loadUsers() {
+	const fetchData = async () => {
 		loading = true;
 		error = null;
 		try {
@@ -33,14 +33,14 @@
 		} finally {
 			loading = false;
 		}
-	}
+	};
 
 	onMount(() => {
-		loadUsers();
+		fetchData();
 	});
 
 	// สร้าง user ใหม่ (POST)
-	async function createUser(user: Omit<User, 'user_id' | 'add_date'>) {
+	const createUser = async (user: Omit<User, 'user_id' | 'add_date'>) => {
 		loading = true;
 		try {
 			const newUser = {
@@ -58,7 +58,7 @@
 				timer: 1500
 			});
 			closeForm();
-			loadUsers();
+			fetchData();
 		} catch (e: any) {
 			await Swal.fire({
 				icon: 'error',
@@ -68,9 +68,9 @@
 		} finally {
 			loading = false;
 		}
-	}
+	};
 
-	async function updateUser(user: User) {
+	const updateUser = async (user: User) => {
 		try {
 			await updateUserBy(user);
 			await Swal.fire({
@@ -81,7 +81,7 @@
 				timer: 1500
 			});
 			closeForm();
-			loadUsers();
+			fetchData();
 		} catch (e: any) {
 			await Swal.fire({
 				icon: 'error',
@@ -89,10 +89,10 @@
 				text: e.message
 			});
 		}
-	}
+	};
 
 	// ลบ user (DELETE)
-	async function deleteUser(user_id: number) {
+	const deleteUser = async (user_id: number) => {
 		const result = await Swal.fire({
 			title: 'ต้องการลบผู้ใช้นี้?',
 			text: 'การดำเนินการนี้ไม่สามารถย้อนกลับได้!',
@@ -114,7 +114,7 @@
 					showConfirmButton: false,
 					timer: 1500
 				});
-				loadUsers();
+				fetchData();
 			} catch (e: any) {
 				await Swal.fire({
 					icon: 'error',
@@ -123,10 +123,10 @@
 				});
 			}
 		}
-	}
+	};
 
 	// ฟังก์ชันเรียกใช้งานฟอร์มเพิ่ม/แก้ไข
-	function startCreate() {
+	const startCreate = () => {
 		editingUser = {
 			user_id: 0,
 			name: '',
@@ -135,27 +135,27 @@
 			add_date: new Date()
 		};
 		showForm = true;
-	}
+	};
 
-	function startEdit(user: User) {
+	const startEdit = (user: User) => {
 		editingUser = { ...user };
 		showForm = true;
-	}
+	};
 
-	function closeForm() {
+	const closeForm = () => {
 		editingUser = null;
 		showForm = false;
-	}
+	};
 
-	function toggleForm() {
+	const toggleForm = () => {
 		if (showForm && editingUser) {
 			closeForm();
 		} else {
 			startCreate();
 		}
-	}
+	};
 
-	async function submitForm() {
+	const submitForm = async () => {
 		if (!editingUser) return;
 
 		if (!editingUser.user_id) {
@@ -169,7 +169,7 @@
 			// แก้ไข
 			await updateUser(editingUser);
 		}
-	}
+	};
 </script>
 
 <main class="min-h-screen p-6" style="background-color: #F5F5F5;">
