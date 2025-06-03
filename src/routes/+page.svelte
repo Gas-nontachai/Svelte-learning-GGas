@@ -99,7 +99,7 @@
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#d33',
-			cancelButtonColor: '#3085d6',
+			cancelButtonColor: '#4DA8DA',
 			confirmButtonText: 'ใช่, ลบเลย!',
 			cancelButtonText: 'ยกเลิก'
 		});
@@ -172,12 +172,13 @@
 	}
 </script>
 
-<main class="container mx-auto min-h-screen p-6">
+<main class="min-h-screen p-6" style="background-color: #F5F5F5;">
 	<div class="mx-auto max-w-6xl">
-		<div class="mb-6 rounded-lg bg-white p-6 shadow-lg">
+		<div class="mb-6 rounded-lg bg-white p-6 shadow-md">
 			<h1 class="mb-6 flex items-center text-3xl font-bold text-gray-800">
 				<svg
-					class="mr-3 h-8 w-8 text-blue-600"
+					class="mr-3 h-8 w-8"
+					style="color: #4DA8DA;"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -196,7 +197,8 @@
 			<div class="mb-6">
 				<button
 					on:click={toggleForm}
-					class="flex transform items-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:from-blue-600 hover:to-blue-700 hover:shadow-lg"
+					class="flex items-center rounded-lg px-6 py-3 font-semibold text-white shadow-md transition-shadow hover:shadow-lg"
+					style="background-color: #4DA8DA;"
 				>
 					<svg
 						class="mr-2 h-5 w-5 transition-transform duration-200 {showForm ? 'rotate-45' : ''}"
@@ -219,9 +221,9 @@
 			{#if showForm && editingUser}
 				<div
 					class="mb-6 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
-					transition:slide={{ duration: 300 }}
+					transition:slide={{ duration: 200 }}
 				>
-					<div class="rounded-t-lg bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4">
+					<div class="px-6 py-4" style="background-color: #80D8C3;">
 						<h3 class="flex items-center text-xl font-semibold text-white">
 							<svg class="mr-2 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path
@@ -246,7 +248,7 @@
 									type="text"
 									bind:value={editingUser.name}
 									required
-									class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+									class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
 									placeholder="กรอกชื่อ"
 								/>
 							</div>
@@ -260,7 +262,7 @@
 									type="email"
 									bind:value={editingUser.email}
 									required
-									class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+									class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
 									placeholder="กรอกอีเมล"
 								/>
 							</div>
@@ -273,7 +275,7 @@
 									id="user-tel"
 									type="tel"
 									bind:value={editingUser.tel}
-									class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+									class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
 									placeholder="กรอกเบอร์โทร"
 								/>
 							</div>
@@ -283,7 +285,8 @@
 							<button
 								type="submit"
 								disabled={loading}
-								class="flex items-center justify-center rounded-md bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 font-semibold text-white transition-all duration-200 hover:from-green-600 hover:to-green-700 disabled:from-gray-400 disabled:to-gray-500"
+								class="flex items-center justify-center rounded-md px-6 py-3 font-semibold text-white disabled:opacity-50"
+								style="background-color: #80D8C3;"
 							>
 								{#if loading}
 									<div class="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
@@ -302,7 +305,7 @@
 							<button
 								type="button"
 								on:click={closeForm}
-								class="flex items-center justify-center rounded-md bg-gray-500 px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-gray-600"
+								class="flex items-center justify-center rounded-md bg-gray-500 px-6 py-3 font-semibold text-white hover:bg-gray-600"
 							>
 								<svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
@@ -321,7 +324,10 @@
 
 			{#if loading}
 				<div class="flex items-center justify-center py-12">
-					<div class="h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
+					<div
+						class="h-12 w-12 animate-spin rounded-full border-b-2"
+						style="border-color: #4DA8DA;"
+					></div>
 					<p class="ml-4 text-lg text-gray-600">กำลังโหลดข้อมูล...</p>
 				</div>
 			{:else if error}
@@ -341,42 +347,39 @@
 				<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
 					<div class="overflow-x-auto">
 						<table class="min-w-full divide-y divide-gray-200">
-							<thead class="bg-gray-50">
+							<thead style="background-color: #F5F5F5;">
 								<tr>
 									<th
-										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-600 uppercase"
 										>ชื่อ</th
 									>
 									<th
-										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-600 uppercase"
 										>อีเมล</th
 									>
 									<th
-										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-600 uppercase"
 										>เบอร์โทร</th
 									>
 									<th
-										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-600 uppercase"
 										>เพิ่มเมื่อ</th
 									>
 									<th
-										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+										class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-600 uppercase"
 										>การจัดการ</th
 									>
 								</tr>
 							</thead>
 							<tbody class="divide-y divide-gray-200 bg-white">
 								{#each users as user, index}
-									<tr
-										class="transition-colors duration-150 hover:bg-gray-50 {index % 2 === 0
-											? 'bg-white'
-											: 'bg-gray-25'}"
-									>
+									<tr class="hover:bg-gray-50">
 										<td class="px-6 py-4 whitespace-nowrap">
 											<div class="flex items-center">
 												<div class="h-10 w-10 flex-shrink-0">
 													<div
-														class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-blue-400 to-purple-500 font-semibold text-white"
+														class="flex h-10 w-10 items-center justify-center rounded-full font-semibold text-white"
+														style="background-color: #4DA8DA;"
 													>
 														{user.name.charAt(0).toUpperCase()}
 													</div>
@@ -398,7 +401,8 @@
 										<td class="space-x-2 px-6 py-4 text-sm font-medium whitespace-nowrap">
 											<button
 												on:click={() => startEdit(user)}
-												class="flex items-center space-x-1 rounded-md bg-yellow-500 px-4 py-2 text-white transition-colors duration-200 hover:bg-yellow-600"
+												class="inline-flex items-center space-x-1 rounded-md px-4 py-2 text-white hover:opacity-90"
+												style="background-color: #FFD66B; color: #333;"
 											>
 												<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 													<path
@@ -412,7 +416,7 @@
 											</button>
 											<button
 												on:click={() => deleteUser(user.user_id)}
-												class="flex items-center space-x-1 rounded-md bg-red-500 px-4 py-2 text-white transition-colors duration-200 hover:bg-red-600"
+												class="inline-flex items-center space-x-1 rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600"
 											>
 												<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 													<path

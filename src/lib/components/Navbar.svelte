@@ -13,28 +13,27 @@
 	];
 </script>
 
-<nav class="bg-gray-800 p-4 text-white">
-	<ul class="flex space-x-6">
-		{#each navItems as item}
-			<li>
-				<a
-					href={item.href}
-					class="hover:text-yellow-300"
-					class:selected={$currentPath === item.href ? 'text-yellow-400 font-bold' : ''}
-					aria-current={$currentPath === item.href ? 'page' : undefined}
-				>
-					{item.name}
-				</a>
-			</li>
-		{/each}
-	</ul>
-</nav>
+<nav class="sticky top-0 z-50 border-b border-[#80D8C3]/30 bg-[#4DA8DA] shadow-sm">
+	<div class="mx-auto max-w-6xl px-6">
+		<div class="flex h-14 items-center justify-between">
+			<!-- Brand -->
+			<div class="text-xl font-semibold text-[#F5F5F5]">MyApp</div>
 
-<style>
-	a.selected {
-		/* เน้นลิงก์ปัจจุบัน */
-		color: #fbbf24; /* yellow-400 */
-		font-weight: 700;
-		border-bottom: 2px solid #fbbf24;
-	}
-</style>
+			<!-- Navigation Links -->
+			<div class="flex space-x-1">
+				{#each navItems as item}
+					<a
+						href={item.href}
+						class="rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200
+							{$currentPath === item.href
+							? 'bg-[#FFD66B] text-[#4DA8DA]'
+							: 'text-[#F5F5F5] hover:bg-[#80D8C3]/20'}"
+						aria-current={$currentPath === item.href ? 'page' : undefined}
+					>
+						{item.name}
+					</a>
+				{/each}
+			</div>
+		</div>
+	</div>
+</nav>

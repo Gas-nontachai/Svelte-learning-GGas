@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>SvelteKit</title>
+	<title>Svelte Learning</title>
 </svelte:head>
 
 <Navbar />
